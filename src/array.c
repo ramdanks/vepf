@@ -1,5 +1,6 @@
 #include "array.h"
 #include <stdint.h>
+#include <stdlib.h>
 
 array array_malloc(size_t size)
 {
