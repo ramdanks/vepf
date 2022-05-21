@@ -15,7 +15,7 @@ bool is_prime(int64_t value)
         return false;
 
 
-    for (uint64_t i = 0; i <= value / 2; ++i)
+    for (uint64_t i = 3; i <= value / 2; i += 2)
         if (value % i == 0)
             return false;
     
