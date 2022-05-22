@@ -24,7 +24,7 @@ void array_realloc(array* array, size_t size)
     array->size = size;
 }
 
-void array_free(array* array, size_t size)
+void array_free(array* array)
 {
     free(array->data);
     array->size = 0;

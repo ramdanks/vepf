@@ -1,0 +1,10 @@
+.*
+!.gitignore
+
+build/*
+CMakeFiles/*
+
+main
+CMakeCache.txt
+install_manifest.txt
+cmake_install.cmake

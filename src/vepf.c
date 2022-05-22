@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include "bbool.h"
 
+#define VEPF_SIZE_MEM(size)         size / 8 / 2
+#define VEPF_SIZE_PRIME(size_mem)   size_mem * 8 * 2
+
 bool is_prime(int64_t value)
 {
     if (value <= 1)
@@ -39,21 +42,32 @@ bool vepf_is_prime(int64_t value, array array)
     return get_bbool(index, array.data);
 }
 
-array vepf_generate(const size_t size)
+array vepf_generate(size_t size)
 {
-    const size_t size_sqrt = sqrtl(size) + 1.0;
-    const size_t size_mem = size / 8 / 2;
+    array buf = vepf_allocate(size);
+    return vepf_generate_set(buf);
+}
 
-    uint8_t* primes = malloc(size_mem);
+array vepf_generate_set(array array)
+{
+    uint8_t* prime_buf      = (uint8_t*) array.data;
+    const size_t size_prime = VEPF_SIZE_PRIME(array.size);
+    const size_t size_sqrt  = sqrtl(size_prime) + 1.0;
 
-    for (size_t i = 0; i < size_mem; ++i)
-        primes[i] = 0xFF;
+    for (size_t i = 0; i < array.size; ++i)
+        prime_buf[i] = 0xFF;
 
     for (size_t i = 3; i < size_sqrt; i += 2)
-        if (get_bbool(i / 2, primes))
-            for (size_t j = i * i / 2; j < size_mem; j += i)
-                set_false_bbool(j, primes);
+        if (get_bbool(i / 2, prime_buf))
+            for (size_t j = i * i / 2; j < array.size; j += i)
+                set_false_bbool(j, prime_buf);
 
-    array ret = { primes, size_mem };
-    return ret;
+    return array;
+}
+
+array vepf_allocate(size_t size)
+{
+    size_t size_mem = VEPF_SIZE_MEM(size);
+    void* mem = malloc(size_mem);
+    return (array) { mem, mem == NULL ? 0 : size_mem };
 }

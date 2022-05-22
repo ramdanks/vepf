@@ -17,6 +17,10 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief 
  * 
@@ -44,6 +48,26 @@ bool vepf_is_prime(int64_t value, array array);
  * @param size 
  * @return array 
  */
-array vepf_generate(const size_t size);
+array vepf_generate(size_t size);
+
+/**
+ * @brief 
+ * 
+ * @param array 
+ * @return array 
+ */
+array vepf_generate_set(array array);
+
+/**
+ * @brief 
+ * 
+ * @param size 
+ * @return array 
+ */
+array vepf_allocate(size_t size);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
