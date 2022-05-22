@@ -10,7 +10,7 @@
 void validator(std::string_view filepath, std::function<bool(uint64_t)> prime_validator) 
 {
     std::fstream fstream;
-    fstream.open(filepath, std::ios::in);
+    fstream.open(filepath.data(), std::ios::in);
 
     if (fstream.is_open() == false)
     {
