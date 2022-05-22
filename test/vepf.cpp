@@ -14,9 +14,9 @@ TEST_CASE ("vepf truth", "[vepf]")
 
     if (fstream.is_open() == false)
     {
-        char buff[1024];
-        snprintf(buff, sizeof(buff), "Can't read file: %s", PRIME_LIST_FILEPATH);
-        throw std::runtime_error(buff);
+        std::stringstream info;
+        info << "Can't read file: " << PRIME_LIST_FILEPATH;
+        throw std::runtime_error(info.str());
     }
 
     std::string read;
@@ -29,14 +29,14 @@ TEST_CASE ("vepf truth", "[vepf]")
 
         if (real != expected)
         {
-            char buff[1024];
-            snprintf(buff, sizeof(buff), "%llu: expected:%d | real:%d", i, expected, real);
-            INFO(buff);
+            std::stringstream info;
+            info << "primeness of " << i << ": expected:" << expected << " | real:" << real;
+            FAIL(info.str());
         }
 
         REQUIRE(real == expected);
         
-        if (expected)
+        if (i == value)
         {
             if (!std::getline(fstream, read))
                 break;

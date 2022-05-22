@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = /opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E rm -f
+RM = /opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ramadhan/Code/vepf
+CMAKE_SOURCE_DIR = /Users/ramadhanks/Documents/SourceCode/vepf
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ramadhan/Code/vepf
+CMAKE_BINARY_DIR = /Users/ramadhanks/Documents/SourceCode/vepf
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/ramadhan/Code/vepf
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -97,44 +97,44 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/opt/homebrew/Cellar/cmake/3.23.1_1/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ramadhan/Code/vepf/CMakeFiles /home/ramadhan/Code/vepf//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ramadhanks/Documents/SourceCode/vepf/CMakeFiles /Users/ramadhanks/Documents/SourceCode/vepf//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ramadhan/Code/vepf/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ramadhanks/Documents/SourceCode/vepf/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -158,7 +158,7 @@ preinstall/fast:
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -P /home/ramadhan/Code/vepf/CMakeFiles/VerifyGlobs.cmake
+	$(CMAKE_COMMAND) -P /Users/ramadhanks/Documents/SourceCode/vepf/CMakeFiles/VerifyGlobs.cmake
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
@@ -188,80 +188,125 @@ vepf-test/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/build
 .PHONY : vepf-test/fast
 
-# target to build an object file
-src/array.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/array.o
+src/array.o: src/array.c.o
 .PHONY : src/array.o
 
-# target to preprocess a source file
-src/array.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/array.i
+# target to build an object file
+src/array.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/array.c.o
+.PHONY : src/array.c.o
+
+src/array.i: src/array.c.i
 .PHONY : src/array.i
 
-# target to generate assembly for a file
-src/array.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/array.s
+# target to preprocess a source file
+src/array.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/array.c.i
+.PHONY : src/array.c.i
+
+src/array.s: src/array.c.s
 .PHONY : src/array.s
 
-# target to build an object file
-src/bbool.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/bbool.o
+# target to generate assembly for a file
+src/array.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/array.c.s
+.PHONY : src/array.c.s
+
+src/bbool.o: src/bbool.c.o
 .PHONY : src/bbool.o
 
-# target to preprocess a source file
-src/bbool.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/bbool.i
+# target to build an object file
+src/bbool.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/bbool.c.o
+.PHONY : src/bbool.c.o
+
+src/bbool.i: src/bbool.c.i
 .PHONY : src/bbool.i
 
-# target to generate assembly for a file
-src/bbool.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/bbool.s
+# target to preprocess a source file
+src/bbool.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/bbool.c.i
+.PHONY : src/bbool.c.i
+
+src/bbool.s: src/bbool.c.s
 .PHONY : src/bbool.s
 
-# target to build an object file
-src/vepf.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.o
+# target to generate assembly for a file
+src/bbool.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/bbool.c.s
+.PHONY : src/bbool.c.s
+
+src/vepf.o: src/vepf.c.o
 .PHONY : src/vepf.o
 
-# target to preprocess a source file
-src/vepf.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.i
+# target to build an object file
+src/vepf.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.c.o
+.PHONY : src/vepf.c.o
+
+src/vepf.i: src/vepf.c.i
 .PHONY : src/vepf.i
 
-# target to generate assembly for a file
-src/vepf.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.s
+# target to preprocess a source file
+src/vepf.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.c.i
+.PHONY : src/vepf.c.i
+
+src/vepf.s: src/vepf.c.s
 .PHONY : src/vepf.s
 
-# target to build an object file
-test/catch_amalgamated.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.o
+# target to generate assembly for a file
+src/vepf.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.c.s
+.PHONY : src/vepf.c.s
+
+test/catch_amalgamated.o: test/catch_amalgamated.cpp.o
 .PHONY : test/catch_amalgamated.o
 
-# target to preprocess a source file
-test/catch_amalgamated.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.i
+# target to build an object file
+test/catch_amalgamated.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.cpp.o
+.PHONY : test/catch_amalgamated.cpp.o
+
+test/catch_amalgamated.i: test/catch_amalgamated.cpp.i
 .PHONY : test/catch_amalgamated.i
 
-# target to generate assembly for a file
-test/catch_amalgamated.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.s
+# target to preprocess a source file
+test/catch_amalgamated.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.cpp.i
+.PHONY : test/catch_amalgamated.cpp.i
+
+test/catch_amalgamated.s: test/catch_amalgamated.cpp.s
 .PHONY : test/catch_amalgamated.s
 
-# target to build an object file
-test/vepf.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.o
+# target to generate assembly for a file
+test/catch_amalgamated.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.cpp.s
+.PHONY : test/catch_amalgamated.cpp.s
+
+test/vepf.o: test/vepf.cpp.o
 .PHONY : test/vepf.o
 
-# target to preprocess a source file
-test/vepf.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.i
+# target to build an object file
+test/vepf.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.cpp.o
+.PHONY : test/vepf.cpp.o
+
+test/vepf.i: test/vepf.cpp.i
 .PHONY : test/vepf.i
 
-# target to generate assembly for a file
-test/vepf.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.s
+# target to preprocess a source file
+test/vepf.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.cpp.i
+.PHONY : test/vepf.cpp.i
+
+test/vepf.s: test/vepf.cpp.s
 .PHONY : test/vepf.s
+
+# target to generate assembly for a file
+test/vepf.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.cpp.s
+.PHONY : test/vepf.cpp.s
 
 # Help Target
 help:
@@ -303,7 +348,7 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -P /home/ramadhan/Code/vepf/CMakeFiles/VerifyGlobs.cmake
+	$(CMAKE_COMMAND) -P /Users/ramadhanks/Documents/SourceCode/vepf/CMakeFiles/VerifyGlobs.cmake
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
