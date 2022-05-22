@@ -7,10 +7,10 @@
 
 #define PRIME_LIST_FILEPATH "test/primes-to-100k.txt"
 
-TEST_CASE ("vepf truth", "[vepf]")
+void validator(std::string_view filepath, std::function<bool(uint64_t)> prime_validator) 
 {
     std::fstream fstream;
-    fstream.open(PRIME_LIST_FILEPATH, std::ios::in);
+    fstream.open(filepath, std::ios::in);
 
     if (fstream.is_open() == false)
     {
@@ -24,7 +24,7 @@ TEST_CASE ("vepf truth", "[vepf]")
 
     for (uint64_t i = 0, value = std::stoull(read); true; ++i)
     {   
-        bool real       = is_prime(i);
+        bool real       = prime_validator(i);
         bool expected   = i == value;
 
         if (real != expected)
@@ -43,6 +43,18 @@ TEST_CASE ("vepf truth", "[vepf]")
             value = std::stoull(read);
         }
     }
+}
+
+TEST_CASE ("utility truth", "[utility]")
+{
+    validator(PRIME_LIST_FILEPATH, is_prime);
+}
+
+TEST_CASE ("vepf truth", "[vepf]")
+{
+    array primes = vepf_generate(1e6);
+    validator(PRIME_LIST_FILEPATH, [&](auto value){ return vepf_is_prime(value, primes); });
+    array_free(&primes);
 }
 
 TEST_CASE ("vepf performance", "[vepf][!benchmark]")
