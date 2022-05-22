@@ -65,7 +65,29 @@ TEST_CASE ("vepf performance", "[vepf][!benchmark]")
     array e6 = vepf_allocate(1e6);
     array e9 = vepf_allocate(1e9);
 
-    BENCHMARK("Generate Prime 1e3") { return vepf_generate_set(e3); };
-    BENCHMARK("Generate Prime 1e6") { return vepf_generate_set(e6); };
-    BENCHMARK("Generate Prime 1e9") { return vepf_generate_set(e9); };
+    SECTION("prime generator")
+    {
+        BENCHMARK("Generate Prime 1e3") { return vepf_generate_set(e3); };
+        BENCHMARK("Generate Prime 1e6") { return vepf_generate_set(e6); };
+        BENCHMARK("Generate Prime 1e9") { return vepf_generate_set(e9); };
+    }
+
+    SECTION("prime validation")
+    {
+        BENCHMARK_ADVANCED("Prime Validation Negative")(Catch::Benchmark::Chronometer meter)
+        {
+            auto value = GENERATE(random(-1e6, -1e1));
+            meter.measure([&](void){ return vepf_is_prime(value, e9); });
+        };
+        BENCHMARK_ADVANCED("Prime Validation Even")(Catch::Benchmark::Chronometer meter)
+        {
+            auto value = GENERATE(filter([](auto i){ return (uint64_t) i % 2 == 0; }, random(1e1, 1e6)));
+            meter.measure([&](void){ return vepf_is_prime(value, e9); });
+        };
+        BENCHMARK_ADVANCED("Prime Validation Odd")(Catch::Benchmark::Chronometer meter)
+        {
+            auto value = GENERATE(filter([](auto i){ return (uint64_t) i % 2 == 1; }, random(1e1, 1e6)));
+            meter.measure([&](void){ return vepf_is_prime(value, e9); });
+        };
+    }
 }
