@@ -158,6 +158,7 @@ preinstall/fast:
 
 # clear depends
 depend:
+	$(CMAKE_COMMAND) -P /home/ramadhan/Code/vepf/CMakeFiles/VerifyGlobs.cmake
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
@@ -173,6 +174,19 @@ vepf: cmake_check_build_system
 vepf/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/build
 .PHONY : vepf/fast
+
+#=============================================================================
+# Target rules for targets named vepf-test
+
+# Build rule for target.
+vepf-test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 vepf-test
+.PHONY : vepf-test
+
+# fast build rule for target.
+vepf-test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/build
+.PHONY : vepf-test/fast
 
 # target to build an object file
 src/array.o:
@@ -219,6 +233,36 @@ src/vepf.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf.dir/build.make CMakeFiles/vepf.dir/src/vepf.s
 .PHONY : src/vepf.s
 
+# target to build an object file
+test/catch_amalgamated.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.o
+.PHONY : test/catch_amalgamated.o
+
+# target to preprocess a source file
+test/catch_amalgamated.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.i
+.PHONY : test/catch_amalgamated.i
+
+# target to generate assembly for a file
+test/catch_amalgamated.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/catch_amalgamated.s
+.PHONY : test/catch_amalgamated.s
+
+# target to build an object file
+test/vepf.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.o
+.PHONY : test/vepf.o
+
+# target to preprocess a source file
+test/vepf.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.i
+.PHONY : test/vepf.i
+
+# target to generate assembly for a file
+test/vepf.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/vepf-test.dir/build.make CMakeFiles/vepf-test.dir/test/vepf.s
+.PHONY : test/vepf.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -232,6 +276,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... vepf"
+	@echo "... vepf-test"
 	@echo "... src/array.o"
 	@echo "... src/array.i"
 	@echo "... src/array.s"
@@ -241,6 +286,12 @@ help:
 	@echo "... src/vepf.o"
 	@echo "... src/vepf.i"
 	@echo "... src/vepf.s"
+	@echo "... test/catch_amalgamated.o"
+	@echo "... test/catch_amalgamated.i"
+	@echo "... test/catch_amalgamated.s"
+	@echo "... test/vepf.o"
+	@echo "... test/vepf.i"
+	@echo "... test/vepf.s"
 .PHONY : help
 
 
@@ -252,6 +303,7 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
+	$(CMAKE_COMMAND) -P /home/ramadhan/Code/vepf/CMakeFiles/VerifyGlobs.cmake
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
