@@ -1,11 +1,13 @@
-#include "catch_amalgamated.hpp"
+#define CATCH_CONFIG_MAIN
+#define CATCH_CONFIG_ENABLE_BENCHMARKING
+#include "catch.hpp"
 
-#include "../src/vepf.h"
+#include "../../src/vepf.h"
 #include <fstream>
-#include <string>
+#include <sstream>
 #include <exception>
 
-#define PRIME_LIST_FILEPATH "test/primes-to-100k.txt"
+#define PRIME_LIST_FILEPATH "testfile/primes-to-100k.txt"
 
 void validator(std::string_view filepath, std::function<bool(uint64_t)> prime_validator) 
 {
