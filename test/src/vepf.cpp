@@ -7,7 +7,9 @@
 #include <sstream>
 #include <exception>
 
-#define PRIME_LIST_FILEPATH "testfile/primes-to-100k.txt"
+// from CMakeLists target compile definitions
+#define FROM_RESOURCE(file)     TEST_RESOURCE_DIR file
+#define PRIME_LIST_FILEPATH     FROM_RESOURCE("primes-to-100k.txt")
 
 void validator(std::string_view filepath, std::function<bool(uint64_t)> prime_validator) 
 {
@@ -17,7 +19,7 @@ void validator(std::string_view filepath, std::function<bool(uint64_t)> prime_va
     if (fstream.is_open() == false)
     {
         std::stringstream info;
-        info << "Can't read file: " << PRIME_LIST_FILEPATH;
+        info << "Can't read file: " << filepath;
         throw std::runtime_error(info.str());
     }
 
@@ -65,29 +67,37 @@ TEST_CASE ("vepf performance", "[vepf][!benchmark]")
     array e6 = vepf_allocate(1e6);
     array e9 = vepf_allocate(1e9);
 
-    SECTION("prime generator")
+    BENCHMARK("Generate Prime 1e3") { return vepf_generate_set(e3); };
+    BENCHMARK("Generate Prime 1e6") { return vepf_generate_set(e6); };
+    BENCHMARK("Generate Prime 1e9") { return vepf_generate_set(e9); };
+    
+    BENCHMARK_ADVANCED("Prime Validation Negative")(Catch::Benchmark::Chronometer meter)
     {
-        BENCHMARK("Generate Prime 1e3") { return vepf_generate_set(e3); };
-        BENCHMARK("Generate Prime 1e6") { return vepf_generate_set(e6); };
-        BENCHMARK("Generate Prime 1e9") { return vepf_generate_set(e9); };
-    }
+        auto value = random() % (long) (1e8);
+        value = value == 0 ? -1 : value >= 1 ? -value : value;
+        meter.measure([&](void){ return vepf_is_prime(value, e9); });
+    };
+    BENCHMARK_ADVANCED("Prime Validation Even")(Catch::Benchmark::Chronometer meter)
+    {
+        auto value = random() % (long) (1e8);
+        value = value == 0 ? 2 : value % 2 == 1 ? value + 1 : value;
+        meter.measure([&](void){ return vepf_is_prime(value, e9); });
+    };
+    BENCHMARK_ADVANCED("Prime Validation Odd")(Catch::Benchmark::Chronometer meter)
+    {
+        auto value = random() % (long) (1e8);
+        value = value == 0 ? 1 : value % 2 == 0 ? value + 1 : value;
+        meter.measure([&](void){ return vepf_is_prime(value, e9); });
+    };
+}
 
-    SECTION("prime validation")
-    {
-        BENCHMARK_ADVANCED("Prime Validation Negative")(Catch::Benchmark::Chronometer meter)
-        {
-            auto value = GENERATE(random(-1e6, -1e1));
-            meter.measure([&](void){ return vepf_is_prime(value, e9); });
-        };
-        BENCHMARK_ADVANCED("Prime Validation Even")(Catch::Benchmark::Chronometer meter)
-        {
-            auto value = GENERATE(filter([](auto i){ return (uint64_t) i % 2 == 0; }, random(1e1, 1e6)));
-            meter.measure([&](void){ return vepf_is_prime(value, e9); });
-        };
-        BENCHMARK_ADVANCED("Prime Validation Odd")(Catch::Benchmark::Chronometer meter)
-        {
-            auto value = GENERATE(filter([](auto i){ return (uint64_t) i % 2 == 1; }, random(1e1, 1e6)));
-            meter.measure([&](void){ return vepf_is_prime(value, e9); });
-        };
-    }
+TEST_CASE ("ideal performance", "[ideal][!benchmark]")
+{
+    // primeness of a value based on index. value 2 = primes[2] = true
+    bool primes[] = { false, false, true, true, false, true, false };
+    auto validator = [&](int64_t value){ return value < 0 ? false : primes[value]; };
+
+    BENCHMARK("Prime Validation Negative")  { return validator(-1); };
+    BENCHMARK("Prime Valdiation Even")      { return validator(2); };
+    BENCHMARK("Prime Validation Odd")       { return validator(1); };
 }
