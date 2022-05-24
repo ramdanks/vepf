@@ -1,7 +1,7 @@
 #include "vepf.h"
+#include "bbool.h"
 #include <math.h>
 #include <stdlib.h>
-#include "bbool.h"
 
 #define VEPF_SIZE_MEM(size)         size / 8 / 2
 #define VEPF_SIZE_PRIME(size_mem)   size_mem * 8 * 2
@@ -52,7 +52,7 @@ array vepf_generate_set(array array)
 {
     uint8_t* prime_buf      = (uint8_t*) array.data;
     const size_t size_prime = VEPF_SIZE_PRIME(array.size);
-    const size_t size_sqrt  = sqrtl(size_prime) + 1.0;
+    const size_t size_sqrt  = 1.0 + sqrt(size_prime);
 
     for (size_t i = 0; i < array.size; ++i)
         prime_buf[i] = 0xFF;

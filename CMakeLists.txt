@@ -29,6 +29,8 @@ file(GLOB_RECURSE HEADERS ${SOURCE_PATH}/*.h)
 # Create static library
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
+target_link_libraries(${PROJECT_NAME} PRIVATE libm.a)
+
 # copy headers into build dir
 file(COPY ${HEADERS} DESTINATION ${HEADER_OUTPUT_PATH})
 
